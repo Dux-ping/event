@@ -3,9 +3,18 @@ import React, { useState } from "react";
 function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [disabled, changeDisabled] = useState(false);
 
-  const handleSubmit = (n) => {
+  const handleSubmit = async (n) => {
     n.preventDefault();
+    changeDisabled(true);
+    try {
+      const res = await props.client.login(n.target.username.value, n.target.password.value);
+      props.loggedIn(res.data.token);
+    } catch (error) {
+      alert("error,please try again");
+    }
+    changeDisabled(false);
   };
 
   return (
@@ -13,9 +22,25 @@ function Login(props) {
       <h2>Sign in</h2>
       <form className="login-form" onSubmit={handleSubmit}>
         <label htmlFor="email"></label>
-        <input value={email} onChange={(n) => setEmail(n.target.value)} type="email" placeholder="Email" id="email" name="email" />
+        <input
+          value={email}
+          onChange={(n) => setEmail(n.target.value)}
+          type="email"
+          disabled={disabled}
+          placeholder="Email"
+          id="email"
+          name="email"
+        />
         <label htmlFor="password"></label>
-        <input value={password} onChange={(n) => setPassword(n.target.value)} type="password" placeholder="Password" id="password" name="password" />
+        <input
+          value={password}
+          onChange={(n) => setPassword(n.target.value)}
+          type="password"
+          disabled={disabled}
+          placeholder="Password"
+          id="password"
+          name="password"
+        />
         <button type="submit">Login</button>
       </form>
       <button className="link-button" onClick={() => props.onFormSwitch("register")}>
