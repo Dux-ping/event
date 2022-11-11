@@ -19,11 +19,11 @@ export class ApiClient {
     });
   }
 
-  async login(userName, password) {
+  async login(email, password) {
     return axios({
       method: "post",
-      url: "${url}auth",
-      data: { userName, password },
+      url: `${url}auth`,
+      data: { email, password },
     }).catch((error) => {
       throw error;
     });

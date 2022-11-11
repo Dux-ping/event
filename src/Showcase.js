@@ -43,8 +43,8 @@ function Showcase(props) {
       <table>
         <thead>
           <tr>
-            <th>Advert Name</th>
-            <th>Price</th>
+            <th>Events</th>
+            <th>price</th>
           </tr>
         </thead>
         <tbody>{buildrows()}</tbody>

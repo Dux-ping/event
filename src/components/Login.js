@@ -9,10 +9,11 @@ function Login(props) {
     n.preventDefault();
     changeDisabled(true);
     try {
-      const res = await props.client.login(n.target.username.value, n.target.password.value);
+      const res = await props.client.login(email, password);
+      console.log(res);
       props.loggedIn(res.data.token);
     } catch (error) {
-      alert("error,please try again");
+      alert("incorrect email or password,please try again");
     }
     changeDisabled(false);
   };
@@ -20,7 +21,7 @@ function Login(props) {
   return (
     <div className="authentification-form-container">
       <h2>Sign in</h2>
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={(event) => handleSubmit(event)}>
         <label htmlFor="email"></label>
         <input
           value={email}
